@@ -76,6 +76,19 @@
             <param name="args">The project specific CLI arguments.</param>
             <returns>An instance of <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/>.</returns>
         </member>
+        <member name="T:YICG.Apps.Slack.Echo.SlackAdapterWithErrorHandler">
+            <summary>
+            This is the Slack Adapter with error handling implementation.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.SlackAdapterWithErrorHandler.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Bot.Builder.Adapters.Slack.SlackAdapterOptions,Microsoft.Extensions.Logging.ILogger{Microsoft.Bot.Builder.Adapters.Slack.SlackAdapter})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YICG.Apps.Slack.Echo.SlackAdapterWithErrorHandler"/> class.
+            </summary>
+            <param name="configuration">Application key value settings.</param>
+            <param name="adapterOptions">Slack adapter options.</param>
+            <param name="logger">Logging mechanism.</param>
+        </member>
         <member name="T:YICG.Apps.Slack.Echo.Startup">
             <summary>
             This is the startup class.
