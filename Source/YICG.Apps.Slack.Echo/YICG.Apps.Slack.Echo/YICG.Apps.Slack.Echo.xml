@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YICG.Apps.Slack.Echo</name>
+    </assembly>
+    <members>
+        <member name="T:YICG.Apps.Slack.Echo.AdapterWithErrorHandler">
+            <summary>
+            This is the adapter with error handler class.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.AdapterWithErrorHandler.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{Microsoft.Bot.Builder.Integration.AspNet.Core.BotFrameworkHttpAdapter})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YICG.Apps.Slack.Echo.AdapterWithErrorHandler"/> class.
+            </summary>
+            <param name="configuration">Application key-value settings.</param>
+            <param name="logger">The logging mechanism being used through DI.</param>
+        </member>
+        <member name="T:YICG.Apps.Slack.Echo.Bots.EchoBot">
+            <summary>
+            This is the echo bot.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Bots.EchoBot.OnMessageActivityAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IMessageActivity},System.Threading.CancellationToken)">
+            <summary>
+            Anytime there is a message coming into the bot, this method will execute.
+            </summary>
+            <param name="turnContext">The current turn/execution flow.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A unit of execution.</returns>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Bots.EchoBot.OnMembersAddedAsync(System.Collections.Generic.IList{Microsoft.Bot.Schema.ChannelAccount},Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IConversationUpdateActivity},System.Threading.CancellationToken)">
+            <summary>
+            Anytime that a new member gets added to the chat with this bot.
+            </summary>
+            <param name="membersAdded">The list of the <see cref="T:Microsoft.Bot.Schema.ChannelAccount"/> which are added.</param>
+            <param name="turnContext">The current turn/execution flow.</param>
+            <param name="cancellationToken">The cancellation token to signal completion of a turn.</param>
+            <returns>A unit of execution.</returns>
+        </member>
+        <member name="T:YICG.Apps.Slack.Echo.Controllers.BotController">
+            <summary>
+            This ASP Controller is created to handle a request. Dependency Injection will provide the Adapter and IBot
+            implementation at runtime. Multiple different IBot implementations running at different endpoints can be
+            achieved by specifying a more specific type for the bot constructor argument.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Controllers.BotController.#ctor(Microsoft.Bot.Builder.Integration.AspNet.Core.IBotFrameworkHttpAdapter,Microsoft.Bot.Builder.IBot)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YICG.Apps.Slack.Echo.Controllers.BotController"/> class.
+            </summary>
+            <param name="adapter">The bot framework adapter.</param>
+            <param name="bot">The bot middleware.</param>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Controllers.BotController.PostAsync">
+            <summary>
+            This method will forward the request to the bot itself.
+            </summary>
+            <returns>A unit of execution.</returns>
+        </member>
+        <member name="T:YICG.Apps.Slack.Echo.Program">
+            <summary>
+            This is the driving class for the application.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Program.Main(System.String[])">
+            <summary>
+            This is the main entry point of execution.
+            </summary>
+            <param name="args">The project specific CLI arguments.</param>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            This method establishes an instance of the hosting environment.
+            </summary>
+            <param name="args">The project specific CLI arguments.</param>
+            <returns>An instance of <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/>.</returns>
+        </member>
+        <member name="T:YICG.Apps.Slack.Echo.Startup">
+            <summary>
+            This is the startup class.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YICG.Apps.Slack.Echo.Startup"/> class.
+            </summary>
+            <param name="configuration">Application key-value settings.</param>
+        </member>
+        <member name="P:YICG.Apps.Slack.Echo.Startup.Configuration">
+            <summary>
+            Gets the application key-value settings.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services">The service collection middleware.</param>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">The application builder middleware.</param>
+            <param name="env">The web hosting environment middleware.</param>
+        </member>
+    </members>
+</doc>
