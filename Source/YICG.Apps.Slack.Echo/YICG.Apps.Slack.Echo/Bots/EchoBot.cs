@@ -88,6 +88,12 @@ namespace YICG.Apps.Slack.Echo.Bots
                     var interactiveMessage = MessageFactory.Attachment(CreateInteractiveMessage(Directory.GetCurrentDirectory() + @"\Resources\InteractiveMessage.json"));
                     await turnContext.SendActivityAsync(interactiveMessage, cancellationToken).ConfigureAwait(false);
                 }
+
+                if (turnContext.Activity.Value.ToString() == "/sayhi")
+                {
+                    var helloInteractiveMessage = MessageFactory.Attachment(CreateHelloInteractiveMessage(Directory.GetCurrentDirectory() + @"\Resources\InteractiveHelloMessage.json"));
+                    await turnContext.SendActivityAsync(helloInteractiveMessage, cancellationToken).ConfigureAwait(false);
+                }
             }
 
             if (turnContext.Activity.Value is EventType slackEvent)
@@ -107,6 +113,21 @@ namespace YICG.Apps.Slack.Echo.Bots
                     }
                 }
             }
+        }
+
+        private static Attachment CreateHelloInteractiveMessage(string filePath)
+        {
+            var msgJson = System.IO.File.ReadAllText(filePath);
+            var adaptiveCardAttachment = JsonConvert.DeserializeObject<Block[]>(msgJson);
+            var blockList = adaptiveCardAttachment.ToList();
+            var attachment = new Attachment
+            {
+                Content = blockList,
+                ContentType = "application/json",
+                Name = "blocks",
+            };
+
+            return attachment;
         }
 
         private static Attachment CreateInteractiveMessage(string filePath)
