@@ -38,6 +38,14 @@
             <param name="cancellationToken">The cancellation token to signal completion of a turn.</param>
             <returns>A unit of execution.</returns>
         </member>
+        <member name="M:YICG.Apps.Slack.Echo.Bots.EchoBot.OnEventActivityAsync(Microsoft.Bot.Builder.ITurnContext{Microsoft.Bot.Schema.IEventActivity},System.Threading.CancellationToken)">
+            <summary>
+            OnEventActivityAsync method returns an async Task.
+            </summary>
+            <param name="turnContext">The current turn/execution flow; turnContext of ITurnContext{T}, where T is an IActivity.</param>
+            <param name="cancellationToken">The cancellation token propagates notifications that the operation(s) should be canceled.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/>; a unit of execution representing the result of the asynchronous operation.</returns>
+        </member>
         <member name="T:YICG.Apps.Slack.Echo.Controllers.BotController">
             <summary>
             This ASP Controller is created to handle a request. Dependency Injection will provide the Adapter and IBot
@@ -58,6 +66,25 @@
             </summary>
             <returns>A unit of execution.</returns>
         </member>
+        <member name="T:YICG.Apps.Slack.Echo.Controllers.SlackController">
+            <summary>
+            This is the slack controller, and all messages will come here.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Controllers.SlackController.#ctor(Microsoft.Bot.Builder.Adapters.Slack.SlackAdapter,Microsoft.Bot.Builder.IBot)">
+            <summary>
+            Initializes a new instance of the <see cref="T:YICG.Apps.Slack.Echo.Controllers.SlackController"/> class.
+            </summary>
+            <param name="adapter">The Slack adapter middleware.</param>
+            <param name="bot">The bot that can process the incoming messages/activities.</param>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.Controllers.SlackController.PostAsync">
+            <summary>
+            This method will process the incoming requests that are decorated as
+            HTTP POST to the adapter, which will then invoke the bot.
+            </summary>
+            <returns>A unit of execution.</returns>
+        </member>
         <member name="T:YICG.Apps.Slack.Echo.Program">
             <summary>
             This is the driving class for the application.
@@ -75,6 +102,18 @@
             </summary>
             <param name="args">The project specific CLI arguments.</param>
             <returns>An instance of <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder"/>.</returns>
+        </member>
+        <member name="T:YICG.Apps.Slack.Echo.SlackAdapterWithErrorHandler">
+            <summary>
+            This is the Slack Adapter with error handling implementation.
+            </summary>
+        </member>
+        <member name="M:YICG.Apps.Slack.Echo.SlackAdapterWithErrorHandler.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.Extensions.Logging.ILogger{Microsoft.Bot.Builder.Integration.AspNet.Core.BotFrameworkHttpAdapter})">
+            <summary>
+            Initializes a new instance of the <see cref="T:YICG.Apps.Slack.Echo.SlackAdapterWithErrorHandler"/> class.
+            </summary>
+            <param name="configuration">Application key value settings.</param>
+            <param name="logger">Logging mechanism.</param>
         </member>
         <member name="T:YICG.Apps.Slack.Echo.Startup">
             <summary>
