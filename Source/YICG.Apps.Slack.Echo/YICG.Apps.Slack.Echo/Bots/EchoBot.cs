@@ -6,13 +6,16 @@ namespace YICG.Apps.Slack.Echo.Bots
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Bot.Builder;
     using Microsoft.Bot.Builder.Adapters.Slack.Model;
     using Microsoft.Bot.Schema;
+    using Newtonsoft.Json;
+    using SlackAPI;
+    using Attachment = Microsoft.Bot.Schema.Attachment;
 
     /// <summary>
     /// This is the echo bot.
@@ -68,9 +71,9 @@ namespace YICG.Apps.Slack.Echo.Bots
         /// <summary>
         /// OnEventActivityAsync method returns an async Task.
         /// </summary>
-        /// <param name="turnContext">The current turn/execution flow.</param>
+        /// <param name="turnContext">The current turn/execution flow; turnContext of ITurnContext{T}, where T is an IActivity.</param>
         /// <param name="cancellationToken">The cancellation token propagates notifications that the operation(s) should be canceled.</param>
-        /// <returns>A unit of execution representing the result of the asynchronous operation.</returns>
+        /// <returns>A <see cref="Task{TResult}"/>; a unit of execution representing the result of the asynchronous operation.</returns>
         protected override async Task OnEventActivityAsync(ITurnContext<IEventActivity> turnContext, CancellationToken cancellationToken)
         {
             if (turnContext is null)
@@ -91,13 +94,34 @@ namespace YICG.Apps.Slack.Echo.Bots
             {
                 if (slackEvent.Type == "message")
                 {
-                    if (slackEvent.AdditionalProperties.ContainsKey("subtype") && 
+                    if (slackEvent.AdditionalProperties.ContainsKey("subtype") &&
                         slackEvent.AdditionalProperties["subtype"].ToString() == "file_share")
                     {
                         await turnContext.SendActivityAsync(MessageFactory.Text("Echo: I received a file attachment"), cancellationToken).ConfigureAwait(false);
                     }
+
+                    if (slackEvent.AdditionalProperties.ContainsKey("subtype") &&
+                        slackEvent.AdditionalProperties["subtype"].ToString() == "link_shared")
+                    {
+                        await turnContext.SendActivityAsync(MessageFactory.Text("Echo: I received a link share"), cancellationToken).ConfigureAwait(false);
+                    }
                 }
             }
+        }
+
+        private static Attachment CreateInteractiveMessage(string filePath)
+        {
+            var interactiveMsgJson = System.IO.File.ReadAllText(filePath);
+            var adaptiveCardAttachment = JsonConvert.DeserializeObject<Block[]>(interactiveMsgJson);
+            var blockList = adaptiveCardAttachment.ToList();
+            var attachment = new Attachment
+            {
+                Content = blockList,
+                ContentType = "application/json",
+                Name = "blocks",
+            };
+
+            return attachment;
         }
     }
 }
