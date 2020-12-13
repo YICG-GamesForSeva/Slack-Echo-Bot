@@ -12,6 +12,7 @@ namespace YICG.Apps.Slack.Echo
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using YICG.Apps.Slack.Echo.Bots;
 
     /// <summary>

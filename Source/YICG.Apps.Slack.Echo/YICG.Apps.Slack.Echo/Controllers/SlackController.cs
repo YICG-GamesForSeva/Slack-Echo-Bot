@@ -4,6 +4,7 @@
 
 namespace YICG.Apps.Slack.Echo.Controllers
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Bot.Builder;
@@ -39,7 +40,8 @@ namespace YICG.Apps.Slack.Echo.Controllers
         [HttpGet]
         public async Task PostAsync()
         {
-            await this.adapter.ProcessAsync(this.Request, this.Response, this.bot, cancellationToken: default).ConfigureAwait(false);
+            var cnclToken = CancellationToken.None;
+            await this.adapter.ProcessAsync(this.Request, this.Response, this.bot, cnclToken).ConfigureAwait(false);
         }
     }
 }

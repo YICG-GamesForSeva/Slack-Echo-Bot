@@ -5,6 +5,7 @@
 namespace YICG.Apps.Slack.Echo
 {
     using Microsoft.Bot.Builder.Adapters.Slack;
+    using Microsoft.Bot.Builder.Integration.AspNet.Core;
     using Microsoft.Bot.Builder.TraceExtensions;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
@@ -18,10 +19,9 @@ namespace YICG.Apps.Slack.Echo
         /// Initializes a new instance of the <see cref="SlackAdapterWithErrorHandler"/> class.
         /// </summary>
         /// <param name="configuration">Application key value settings.</param>
-        /// <param name="adapterOptions">Slack adapter options.</param>
         /// <param name="logger">Logging mechanism.</param>
-        public SlackAdapterWithErrorHandler(IConfiguration configuration, SlackAdapterOptions adapterOptions, ILogger<SlackAdapter> logger)
-            : base(configuration, adapterOptions, logger)
+        public SlackAdapterWithErrorHandler(IConfiguration configuration, ILogger<BotFrameworkHttpAdapter> logger)
+            : base(configuration, null, logger)
         {
             this.OnTurnError = async (turnContext, exception) =>
             {
